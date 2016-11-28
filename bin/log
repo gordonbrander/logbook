@@ -8,8 +8,12 @@ from datetime import datetime
 def format_timestamp(timestamp):
     return datetime.fromtimestamp(timestamp).strftime('%Y-%m-%d %H:%M:%S')
 
+
 def format_log_tsv(t, message):
-    return "{}\t{}".format(t, message)
+    msg = "{}\t{}".format(t, message).strip()
+    line = "\n" + msg
+    return line
+
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(
