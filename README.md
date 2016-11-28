@@ -1,5 +1,12 @@
 Logs messages with timestamps to CSV file.
 
+Install
+-------
+
+Requirements:
+
+- Python 2.x
+
 Resources
 ---------
 
