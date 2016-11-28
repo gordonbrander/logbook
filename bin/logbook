@@ -5,8 +5,19 @@ import sys
 import time
 from datetime import datetime
 
+
 def format_timestamp(timestamp):
-    return datetime.fromtimestamp(timestamp).strftime('%Y-%m-%d %H:%M:%S')
+    """
+    Format timestamp as ISO 8601 https://en.wikipedia.org/wiki/ISO_8601
+
+    We strftime manually so that we can make sure we only log to the minute
+    rather than to the second.
+
+    Also, we omit the "T" separator between date and time for nicer
+    readability.
+    "It is permitted to omit the 'T' character by mutual agreement."
+    """
+    return datetime.fromtimestamp(timestamp).strftime('%Y-%m-%d %H:%M')
 
 
 def format_log_tsv(t, message):
@@ -44,9 +55,10 @@ if __name__ == '__main__':
     t = format_timestamp(time.time())
 
     # Use message flag if present. Otherwise use file/stdout.
-    if args.message:
-        writefile.write(format_log_tsv(t, args.message))
-    else:
-        readfile = args.read
-        for line in readfile:
-            writefile.write(format_log_tsv(t, line))
+    lines = [args.message] if args.message else args.read
+    # Timestamp each line
+    logs = [format_log_tsv(t, line) for line in lines]
+
+    # Write formatted logs to outfile
+    for log in logs:
+        writefile.write(log)
