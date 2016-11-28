@@ -1,6 +1,5 @@
 #!/usr/bin/env python
 import argparse
-# import fileinput
 import csv
 import sys
 import time
@@ -9,7 +8,7 @@ from datetime import datetime
 def format_timestamp(timestamp):
     return datetime.fromtimestamp(timestamp).strftime('%Y-%m-%d %H:%M:%S')
 
-def log_line(t, message):
+def format_log_tsv(t, message):
     return "{}\t{}".format(t, message)
 
 if __name__ == '__main__':
@@ -40,9 +39,10 @@ if __name__ == '__main__':
     writefile = args.write
     t = format_timestamp(time.time())
 
+    # Use message flag if present. Otherwise use file/stdout.
     if args.message:
-        writefile.write(log_line(t, args.message))
+        writefile.write(format_log_tsv(t, args.message))
     else:
         readfile = args.read
         for line in readfile:
-            writefile.write(log_line(t, line))
+            writefile.write(format_log_tsv(t, line))
