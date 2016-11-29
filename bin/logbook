@@ -61,7 +61,7 @@ if __name__ == '__main__':
     # Use message flag if present. Otherwise use file/stdout.
     lines = [args.message] if args.message else args.read_file
     # Timestamp each line
-    logs = [format_log_tsv(t, line) for line in lines]
+    logs = (format_log_tsv(t, line) for line in lines)
 
     # Write formatted logs to outfile
     for log in logs:
