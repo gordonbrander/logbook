@@ -12,7 +12,7 @@ Use
 logbook ~/output.tsv -m "My message"
 ```
 
-Or with sdin:
+Or use stdin:
 
 ```bash
 echo "Hello from stdin" | logbook ~/output.tsv
