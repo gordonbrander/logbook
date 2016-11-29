@@ -1,4 +1,28 @@
-Logs messages with timestamps to CSV file.
+Logbook
+=======
+
+Have you ever wanted an easy way to timestamp your notes? Well, here you go!
+
+Logbook timestamps your notes and appends them to the end of a TSV (tab-separated value) file.
+
+Use
+---
+
+```bash
+logbook ~/output.tsv -m "My message"
+```
+
+Or with sdin:
+
+```bash
+echo "Hello from stdin" | logbook ~/output.tsv
+```
+
+Or timestamp and log every line of a file:
+
+```bash
+logbook ~/output.tsv -r ~/input.txt
+```
 
 Install
 -------
@@ -6,9 +30,3 @@ Install
 Requirements:
 
 - Python 2.x
-
-Resources
----------
-
-http://stackoverflow.com/questions/33159813/argparse-optional-stdin-read-and-or-stdout-out#33160409
-https://docs.python.org/dev/library/argparse.html
