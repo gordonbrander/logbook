@@ -30,3 +30,16 @@ Install
 Requirements:
 
 - Python 2.x
+
+Install from source via Pip:
+
+```bash
+git clone http://github.com/gordonbrander/logbook.git
+pip install -e logbook
+```
+
+Or, just use it directly:
+
+```bash
+./logbook.py ~/output.tsv -m "My message"
+```

@@ -5,6 +5,32 @@ import sys
 import time
 from datetime import datetime
 
+parser = argparse.ArgumentParser(
+    description="""
+    Helpful tool for manually logging messages to a file.
+    Adds a timestamp to your message and appends to the end of a TSV file.
+
+    Typical use: `logbook ~/log.tsv -m "My message"`
+    """,
+)
+parser.add_argument(
+    'write_file',
+    help="File to append logs to. Defaults to stdout.",
+    nargs="?",
+    type=argparse.FileType('a'),
+    default=sys.stdout
+)
+parser.add_argument(
+    '-r','--read_file',
+    help="A file to read messages from. Each line is treated as a a separate message. If no file or message is provided, stdin will be used.",
+    type=argparse.FileType('r'),
+    default=sys.stdin
+)
+parser.add_argument(
+    '-m','--message',
+    help="Provide a single message to write to log file. Will timestamp message and append to write_file.",
+    default=None
+)
 
 def format_timestamp(timestamp):
     """
@@ -27,42 +53,18 @@ def format_log_tsv(t, message):
     return line
 
 
-if __name__ == '__main__':
-    parser = argparse.ArgumentParser(
-        description="""
-        Helpful tool for manually logging messages to a file.
-        Adds a timestamp to your message and appends to the end of a TSV file.
-
-        Typical use: `logbook ~/log.tsv -m "My message"`
-        """,
-    )
-    parser.add_argument(
-        'write_file',
-        help="File to append logs to. Defaults to stdout.",
-        nargs="?",
-        type=argparse.FileType('a'),
-        default=sys.stdout
-    )
-    parser.add_argument(
-        '-r','--read_file',
-        help="A file to read messages from. Each line is treated as a a separate message. If no file or message is provided, stdin will be used.",
-        type=argparse.FileType('r'),
-        default=sys.stdin
-    )
-    parser.add_argument(
-        '-m','--message',
-        help="Provide a single message to write to log file. Will timestamp message and append to write_file.",
-        default=None
-    )
+def main():
     args = parser.parse_args()
     write_file = args.write_file
     t = format_timestamp(time.time())
-
     # Use message flag if present. Otherwise use file/stdout.
     lines = [args.message] if args.message else args.read_file
     # Timestamp each line
     logs = (format_log_tsv(t, line) for line in lines)
-
     # Write formatted logs to outfile
     for log in logs:
         write_file.write(log)
+
+
+if __name__ == '__main__':
+    main()
