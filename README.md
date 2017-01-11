@@ -9,37 +9,20 @@ Use
 ---
 
 ```bash
-logbook ~/output.tsv -m "My message"
-```
-
-Or use stdin:
-
-```bash
-echo "Hello from stdin" | logbook ~/output.tsv
-```
-
-Or timestamp and log every line of a file:
-
-```bash
-logbook ~/output.tsv -r ~/input.txt
+logbook ~/output.tsv "My message"
 ```
 
 Install
 -------
 
-Requirements:
-
-- Python 2.x
-
-Install from source via Pip:
+Add the bash script to your path.
 
 ```bash
-git clone http://github.com/gordonbrander/logbook.git
-pip install -e logbook
+cp logbook /usr/local/bin/logbook
 ```
 
 Or, just use it directly:
 
 ```bash
-./logbook.py ~/output.tsv -m "My message"
+./logbook ~/output.tsv "My message"
 ```
