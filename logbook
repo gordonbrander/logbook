@@ -1,2 +1,2 @@
 #!/bin/bash
-echo -e "`date +%Y\-%m\-%d\ %H\:%M`\t$2" >> $1
+printf "\n%s\t%s" "`date +%Y\-%m\-%d\ %H\:%M`" "$2" >> $1
